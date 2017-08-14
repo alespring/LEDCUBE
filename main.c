@@ -34,7 +34,24 @@
  uint8_t ms, ms10, ms100, sec;
  uint8_t test;
  
-  
+ char state = 1;
+ char state2 = 2;
+ 
+ char up1;
+ char up2;
+ char up3;
+ char up4;
+ 
+ int down1 = 5;
+ int down2 = 6;
+ int down3 = 7;
+ int down4 = 8;
+ 
+ char a = 1;
+ char b = 1;
+ char c = 1;
+ char d = 2;
+ char e = 2;
 
 ISR(TIMER1_COMPA_vect)
 {
@@ -44,21 +61,71 @@ ISR(TIMER1_COMPA_vect)
     {
         interrupt_num_10ms = 0;						// interrupt_num_10ms zurücksetzen
 		ms++;										//jede Miliisekunde
-      
+      up1++;
+	  down1++;
     }
 	
 	if(ms==10) //alle zehn millisekunden
 	{
 		ms = 0;
 		ms10++;
-		
-		
-	}
+		up2++;
+		down2++;
+	
+		}
 	
 	if(ms10==10)//alle hundert millisekunden
 	{
 		ms10=0;
 		ms100++;
+		test++;
+		/*if(test==6)
+		{
+			test=1;
+			b++;
+		}*/
+		up3++;
+		down3++;
+		
+		switch(state)
+		{
+			case 1:
+					a++;
+					if(a == 5)
+					{
+					state = 2;
+					}
+			break;
+			
+			case 2:
+					b++;
+					if(b == 5)
+					{
+					state = 3;
+					}
+			break;
+			
+			case 3:
+					a--;
+					if(a == 1)
+					{
+					state = 4;
+					}
+					
+					
+			break;
+			
+			case 4:
+					b--;
+					if(b == 1)
+					{
+					state = 1;
+					c++;
+					}
+					
+			break;
+		}
+		
 		
 	}
 	
@@ -66,11 +133,101 @@ ISR(TIMER1_COMPA_vect)
 	{
 		ms100 = 0;
 		sec++;
-		test++;
-		if(test==6)
+		up4++;
+		down4++;
+		
+		switch(state2)
 		{
-			test=1;
+			case 1:
+					d++;
+					if(d == 4)
+					{
+					 state2 = 2;
+					}
+			
+			break;
+			
+			case 2:
+					e++;
+					if(e == 4)
+					{
+					state2 = 3;
+					}
+					
+			break;
+			
+			case 3:
+					d--;
+					if(d == 2)
+					{
+					state2 == 4;
+					}
+					
+			break;
+			
+			case 4:
+					e--;
+					if(e == 2)
+					{
+					state2 = 1;
+					c++;
+					}
 		}
+		/*if(a<5)
+		{
+		a++;
+		}else
+			{
+				if(a==5)
+				{
+					b++;
+				}
+			}
+		
+		if(b>5)
+		{
+			a--;
+		}*/
+		
+		/*switch(state)
+		{
+			case 1:
+					a++;
+					if(a == 5)
+					{
+					state = 2;
+					}
+			break;
+			
+			case 2:
+					b++;
+					if(b == 5)
+					{
+					state = 3;
+					}
+			break;
+			
+			case 3:
+					a--;
+					if(a == 1)
+					{
+					state = 4;
+					}
+					
+					
+			break;
+			
+			case 4:
+					b--;
+					if(b == 1)
+					{
+					state = 1;
+					c++;
+					}
+					
+			break;
+		}*/
+		
 		
 	}
 	
@@ -86,6 +243,7 @@ void cube(uint8_t y, uint8_t z, uint8_t x)
 	DDRB = 0x00;
 	DDRC = 0x00;
 	DDRD =0x00;
+	
 		switch(y)
 		{
 			case 1:	  //Ebene1
@@ -458,8 +616,8 @@ void cube(uint8_t y, uint8_t z, uint8_t x)
 									switch(x)
 									{
 											case 1://Position 1
-													DDRC |= (1<<PD7);//Pin D7
-													PORTC |= (1<<PD7);//HIGH D7
+													DDRD |= (1<<PD7);//Pin D7
+													PORTD |= (1<<PD7);//HIGH D7
 												
 											break;
 												
@@ -502,8 +660,8 @@ void cube(uint8_t y, uint8_t z, uint8_t x)
 									switch(x)
 									{
 											case 1://Position 1
-													DDRC |= (1<<PD7);//Pin D7
-													PORTC |= (1<<PD7);//HIGH D7
+													DDRD |= (1<<PD7);//Pin D7
+													PORTD |= (1<<PD7);//HIGH D7
 												
 											break;
 												
@@ -1180,118 +1338,76 @@ void cube(uint8_t y, uint8_t z, uint8_t x)
     
 void flaeche(uint8_t xz)
 	{
+	
+	DDRA = 0x00; // alle Port_D auf Ausgang setzen 
+ 	//PORTA = 0x00; // alle Port_D auf HIGH gesetzt 
+	DDRB = 0x00;
+	DDRC = 0x00;
+	DDRD =0x00;
+	
 		switch(xz)
 		{
 			case 1:
-				
-					//Reihe1
-									DDRA |= (1<<PA0);//Pin A0
-									PORTA |= (1<<PA0);//HIGH Pin A0
-		
-					//Reihe2
-                                    DDRA |= (1<<PA1);//Pin A1
-									PORTA |= (1<<PA1);//HIGH Pin A1
-									
-					//Reihe3
-                                    DDRA |= (1<<PA2);//Pin A2
-                                    PORTA |= (1<<PA2);//HIGH Pin A2
-									
-					//Reihe4
-									DDRA |= (1<<PA3);//Pin A3
-									PORTA |= (1<<PA3);//HIGH Pin A3
-									
-					//Reihe5
-									DDRA |= (1<<PA4);//Pin A4
-									PORTA |= (1<<PA4);//HIGH A4
-		
-				
-		
-		
-									//Position 1
-											DDRD |= (1<<PD7);//Pin D7
-											PORTD &= ~(1<<PD7);//LOW
-														
-									//Position 2
-											DDRD |= (1<<PD6);//Pin D6
-											PORTD &= ~(1<<PD6);//LOW
-												
-									//Position 3
-											DDRD |= (1<<PD5);//Pin D5
-											PORTD &= ~(1<<PD5);//LOW
-														
-									//Position 4
-											DDRD |= (1<<PD4);//Pin D4
-											PORTD &= ~(1<<PD4);//LOW
-														
-									//Positon 5
-											DDRD |= (1<<PD3);//Pin D3
-											PORTD &= ~(1<<PD3);//LOW
-											
-											
+					DDRA = 0xFF;
+					DDRD = 0xFF;
+
+					PORTA = 0xFF;
+					PORTD = 0x00;
 			break;
 			
 			case 2:
-					//Reihe1
-									DDRA |= (1<<PA0);//Pin A0
-									PORTA |= (1<<PA0);//HIGH Pin A0
-		
-					//Reihe2
-                                    DDRA |= (1<<PA1);//Pin A1
-									PORTA |= (1<<PA1);//HIGH Pin A1
-									
-					//Reihe3
-                                    DDRA |= (1<<PA2);//Pin A2
-                                    PORTA |= (1<<PA2);//HIGH Pin A2
-									
-					//Reihe4
-									DDRA |= (1<<PA3);//Pin A3
-									PORTA |= (1<<PA3);//HIGH Pin A3
-									
-					//Reihe5
-									DDRA |= (1<<PA4);//Pin A4
-									PORTA |= (1<<PA4);//HIGH A4
-		
-		
-		
-		
-									//Position 1
-											DDRD |= (1<<PD7);//Pin D2
-											PORTD |= (1<<PD7);//HIGH D7
-												
-									//Position 2
-											DDRD |= (1<<PD6);//Pin D6
-											PORTD |= (1<<PD6);//HIGH D6
-												
-									//Position 3
-											DDRD |= (1<<PD5);//Pin D5
-											PORTD |= (1<<PD5);//HIGH D5
-											
-									//Position 4
-											DDRD |= (1<<PD4);//Pin D4
-											PORTD |= (1<<PD4);//HIGH D4
-												
-									//Position 5
-											DDRD |= (1<<PD3);//Pin D3
-											PORTD |= (1<<PD3);//HIGH D3	
-			
+					DDRA = 0xFF;
+					DDRD = 0xFF;
+
+					PORTA = 0x00;
+					PORTD = 0xFF;
 			break;
 			
 			case 3:
-			
+					DDRA = 0xFF;
+					DDRC = 0xFF;
+					
+					PORTA = 0xFF;
+					PORTC = 0x00;	
 			break;
 			
 			case 4:
-			
+					DDRA = 0xFF;
+					DDRC = 0xFF;
+					
+					PORTA = 0x00;
+					PORTC = 0xFF;
 			break;
 			
 			case 5:
-			
+					DDRA = 0xFF;
+					DDRB = 0xFF;
+									
+					PORTA = 0xFF;
+					PORTB = 0x00;
 			break;
 		
 		}
 
 
 	}//ende void
+	
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+	
 	
 		/*ISR(TIMER1_COMPA_vect)
     {
@@ -1306,6 +1422,7 @@ void flaeche(uint8_t xz)
 	DDRB = 0x00;
 	DDRC = 0x00;
 	DDRD =0x00;
+	
 	
 	TCCR1A = 0;					// Timer1: keine PWM
 
@@ -1344,42 +1461,50 @@ void flaeche(uint8_t xz)
 	test=0;
 	
 	
-
-	
-   /* cube(4, 5, 4);
-    cube(3, 5, 5);
-    cube(2, 5, 4);
-    cube(1, 5, 5);*/
-    
-   
-   
-    
-    
-	
-	
-	
-	
  	  	while(1) 
     { 
-	/* cube(1, 3, 1);
-    cube(2, 3, 	1);
-	cube(3, 3, 1);
-	cube(4, 3, 1);
-	cube (5, 3, 1);*/
+			//cube(a, 3 , 3);
+	//cube(4, 5 ,5);
 	
-	cube(test, test, test);
-
-	flaeche(1);
-	flaeche(2);
-		
-		/*DDRA |= (1<<PA3);
-		DDRB |= (1<<PB4);
-		
-		PORTA |= (1<<PA3);
-		PORTB &= ~(1<<PB4);*/
-		
-		
 	
+	
+	switch(4)
+	{
+		case 1:cube(2, 1, 1);
+				cube(3, 1, 1);
+				cube(4, 1 ,1);
+				
+				cube(2, 1, 5);
+				cube(3, 1, 5);
+				cube(4, 1 ,5);
+				
+				cube(2, 5, 1);
+				cube(3, 5, 1);
+				cube(4, 5 ,1);
+				
+				cube(2, 5, 5);
+				cube(3, 5, 5);
+				//cube(4, 5 ,5);
+				
+				
+				
+				break;
+		
+		case 2:
+				cube(1, 1, a);
+				cube(2, 1, a);
+				cube(3, 1, a);
+				cube(4, 1, a);
+				cube(5, 1, a);
+				
+		case 3:
+				//cube(1, a, 5);
+				cube(c, a, b);
+				
+		case 4:
+				cube(c, d, e);
+	}
+		
 		
  	}// end of while 
  
