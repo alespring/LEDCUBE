@@ -119,12 +119,21 @@ ISR(TIMER1_COMPA_vect)
 					b--;
 					if(b == 1)
 					{
-					state = 1;
+					state = 5;
 					c++;
+					if(c == 6)
+					{
+					c = 5;
+					}
+					
 					}
 					
 			break;
+			
+			
 		}
+		
+		
 		
 		
 	}
@@ -172,6 +181,8 @@ ISR(TIMER1_COMPA_vect)
 					state2 = 1;
 					c++;
 					}
+					
+			break;
 		}
 		/*if(a<5)
 		{
@@ -1453,7 +1464,6 @@ void flaeche(uint8_t xz)
 	sei();
 	
 	
-	
 	ms=0;
 	ms10=0;
 	ms100=0;
@@ -1468,7 +1478,7 @@ void flaeche(uint8_t xz)
 	
 	
 	
-	switch(4)
+	switch(2)
 	{
 		case 1:cube(2, 1, 1);
 				cube(3, 1, 1);
@@ -1486,23 +1496,27 @@ void flaeche(uint8_t xz)
 				cube(3, 5, 5);
 				//cube(4, 5 ,5);
 				
-				
-				
-				break;
+		break;
 		
 		case 2:
-				cube(1, 1, a);
-				cube(2, 1, a);
-				cube(3, 1, a);
-				cube(4, 1, a);
-				cube(5, 1, a);
+				cube(1, a, b);
+				cube(2, a, b);
+				cube(3, a, b);
+				cube(4, a, b);
+				cube(5, a, b);
+				
+		break;
 				
 		case 3:
 				//cube(1, a, 5);
 				cube(c, a, b);
 				
+		break;
+		
 		case 4:
 				cube(c, d, e);
+		
+		break;
 	}
 		
 		
