@@ -295,9 +295,6 @@ void cube(uint8_t y, uint8_t z, uint8_t x)
 								}//ende switch
 						break;
 							
-							
-							
-							
 						case 4:	//Reihe4
 							DDRA |= (1<<PA3);//Pin A3
 							PORTA |= (1<<PA3);//HIGH Pin A3
