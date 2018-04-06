@@ -55,14 +55,14 @@
 
 ISR(TIMER1_COMPA_vect)
 {
-  static uint8_t interrupt_num_10ms;				// zaehlvariable deklarieren
+  static uint8_t interrupt_num_10ms;// zaehlvariable deklarieren
       
-    if (++interrupt_num_10ms == IRQS_PER_10MS)    	// interrupt_num_10ms erhöhen und mit Maximalwert vergleichen
+    if (++interrupt_num_10ms == IRQS_PER_10MS)// interrupt_num_10ms erhöhen und mit Maximalwert vergleichen
     {
-        interrupt_num_10ms = 0;						// interrupt_num_10ms zurücksetzen
-		ms++;										//jede Miliisekunde
-      up1++;
-	  down1++;
+		interrupt_num_10ms = 0;// interrupt_num_10ms zurücksetzen
+		ms++;//jede Miliisekunde
+		up1++;
+		down1++;
     }
 	
 	if(ms==10) //alle zehn millisekunden
@@ -90,43 +90,42 @@ ISR(TIMER1_COMPA_vect)
 		switch(state)
 		{
 			case 1:
-					a++;
-					if(a == 5)
-					{
+				a++;
+				if(a == 5)
+				{
 					state = 2;
-					}
+				}
 			break;
 			
 			case 2:
-					b++;
-					if(b == 5)
-					{
+				b++;
+				if(b == 5)
+				{
 					state = 3;
-					}
+				}
 			break;
 			
 			case 3:
-					a--;
-					if(a == 1)
-					{
+				a--;
+				if(a == 1)
+				{
 					state = 4;
-					}
-					
+				}
 					
 			break;
 			
 			case 4:
-					b--;
-					if(b == 1)
-					{
+				b--;
+				if(b == 1)
+				{
 					state = 5;
 					c++;
 					if(c == 6)
 					{
-					c = 5;
+						c = 5;
 					}
 					
-					}
+				}
 					
 			break;
 			
@@ -148,97 +147,38 @@ ISR(TIMER1_COMPA_vect)
 		switch(state2)
 		{
 			case 1:
-					d++;
-					if(d == 4)
-					{
-					 state2 = 2;
-					}
-			
+				d++;
+				if(d == 4)
+				{
+				 state2 = 2;
+				}
 			break;
 			
 			case 2:
-					e++;
-					if(e == 4)
-					{
-					state2 = 3;
-					}
-					
+				e++;
+				if(e == 4)
+				{
+				state2 = 3;
+				}	
 			break;
 			
 			case 3:
-					d--;
-					if(d == 2)
-					{
-					state2 == 4;
-					}
-					
+				d--;
+				if(d == 2)
+				{
+				state2 == 4;
+				}	
 			break;
 			
 			case 4:
-					e--;
-					if(e == 2)
-					{
-					state2 = 1;
-					c++;
-					}
-					
+				e--;
+				if(e == 2)
+				{
+				state2 = 1;
+				c++;
+				}	
 			break;
 		}
-		/*if(a<5)
-		{
-		a++;
-		}else
-			{
-				if(a==5)
-				{
-					b++;
-				}
-			}
-		
-		if(b>5)
-		{
-			a--;
-		}*/
-		
-		/*switch(state)
-		{
-			case 1:
-					a++;
-					if(a == 5)
-					{
-					state = 2;
-					}
-			break;
-			
-			case 2:
-					b++;
-					if(b == 5)
-					{
-					state = 3;
-					}
-			break;
-			
-			case 3:
-					a--;
-					if(a == 1)
-					{
-					state = 4;
-					}
-					
-					
-			break;
-			
-			case 4:
-					b--;
-					if(b == 1)
-					{
-					state = 1;
-					c++;
-					}
-					
-			break;
-		}*/
-		
 		
 	}
 	
@@ -255,560 +195,421 @@ void cube(uint8_t y, uint8_t z, uint8_t x)
 	DDRC = 0x00;
 	DDRD =0x00;
 	
-		switch(y)
-		{
+		switch(y){
 			case 1:	  //Ebene1
-						switch(z)
-						{
-							case 1:	//Reihe1
-										DDRA |= (1<<PA0);//Pin A0
-										PORTA |= (1<<PA0);//HIGH Pin A0
-										
-										switch(x)
-										{
-												case 1:	//Position 1
+				switch(z){   
+					case 1:	//Reihe1
+						DDRA |= (1<<PA0);//Pin A0
+						PORTA |= (1<<PA0);//HIGH Pin A0				
+						switch(x){
+							case 1:	//Position 1
 														
-														DDRD |= (1<<PD7);//Pin D7
-														PORTD &= ~(1<<PD7);// LOW Pin D7
-														
-														break;
-												
-												case 2:	//Position 2
-														DDRD |= (1<<PD6);//Pin D6
-														PORTD &= ~(1<<PD6);//LOW Pin D6
-														
-														break;
-										
-										
-												case 3:	//Position 3
-														DDRD |= (1<<PD5);//Pin5
-														PORTD &= ~(1<<PD5);//LOW Pin5
-														
-														break;
-										
-										
-												case 4:	//Position 4
-														DDRD |= (1<<PD4);//Pin4
-														PORTD &= ~(1<<PD4);//LOW Pin4
-														
-														break;
-										
-										
-												case 5:	//Position 5
-														DDRD |= (1<<PD3);//Pin3
-														PORTD &= ~(1<<PD3);//LOW Pin3
-														
-														break;
-							
-										
-										}//ende switch
-							
+								DDRD |= (1<<PD7);//Pin D7
+								PORTD &= ~(1<<PD7);// LOW Pin D7
 							break;
+												
+							case 2:	//Position 2			
+								DDRD |= (1<<PD6);//Pin D6
+								PORTD &= ~(1<<PD6);//LOW Pin D6				
+							break;				
+										
+										
+							case 3:	//Position 3			
+								DDRD |= (1<<PD5);//Pin5				
+								PORTD &= ~(1<<PD5);//LOW Pin5				
+							break;
+										
+										
+							case 4:	//Position 4
+								DDRD |= (1<<PD4);//Pin4
+								PORTD &= ~(1<<PD4);//LOW Pin4
+							break;
+										
+										
+							case 5:	//Position 5
+								DDRD |= (1<<PD3);//Pin3
+								PORTD &= ~(1<<PD3);//LOW Pin3
+							break;
+							}//ende switch
+					break;
 							
 							
-							case 2:	//Reihe2
-                                    DDRA |= (1<<PA1);//Pin A1
-									PORTA |= (1<<PA1);//HIGH Pin A1
-                                    
-										switch(x)
-										{
-												case 1:	//Position 1
-														DDRD |= (1<<PD7);//Pin D7
-														PORTD &= ~(1<<PD7);//LOW
-														
-														break;
+						case 2:	//Reihe2
+                            DDRA |= (1<<PA1);//Pin A1
+							switch(x){
+								case 1:	//Position 1
+									DDRD |= (1<<PD7);//Pin D7
+									PORTD &= ~(1<<PD7);//LOW
+								break;
 												
-												case 2:	//Position 2
-														DDRD |= (1<<PD6);//Pin D6
-														PORTD &= ~(1<<PD6);//LOW
-														
-														break;
+								case 2:	//Position 2
+									DDRD |= (1<<PD6);//Pin D6
+									PORTD &= ~(1<<PD6);//LOW
+								break;
 												
-												case 3:	//Position 3
-														DDRD |= (1<<PD5);//Pin D5
-														PORTD &= ~(1<<PD5);//LOW
-														
-														break;
+								case 3:	//Position 3
+									DDRD |= (1<<PD5);//Pin D5
+									PORTD &= ~(1<<PD5);//LOW
+								break;
 												
-												case 4:		//Position 4
-														DDRD |= (1<<PD4);//Pin D4
-														PORTD &= ~(1<<PD4);//LOW
-														
-														break;
+								case 4:		//Position 4
+									DDRD |= (1<<PD4);//Pin D4
+									PORTD &= ~(1<<PD4);//LOW
+								break;
 												
-												case 5:	//Positon 5
-														DDRD |= (1<<PD3);//Pin D3
-														PORTD &= ~(1<<PD3);//LOW
-														
-														break;
+								case 5:	//Positon 5
+									DDRD |= (1<<PD3);//Pin D3
+									PORTD &= ~(1<<PD3);//LOW
+								break;
+								}//ende switch	
+						break;
+							
+						case 3:	//Reihe3
+                            DDRA |= (1<<PA2);//Pin A2
+                            PORTA |= (1<<PA2);//HIGH Pin A2
+							switch(x){
+								case 1://Position1
+									DDRD |= (1<<PD7);//Pin D7
+									PORTD &= ~(1<<PD7);//LoW D7
+								break;
+												
+								case 2://Position2
+									DDRD |= (1<<PD6);//Pin D6
+									PORTD &= ~(1<<PD6);//LOW Pin D6
+								break;
 								
-										
-										}//ende switch	
-										
-							break;
+								case 3://Position3
+									DDRD |= (1<<PD5);//Pin D5
+									PORTD &= ~(1<<PD5);//LOW D5
+								break;
+												
+								case 4://Position4
+									DDRD |= (1<<PD4);//Pin D4
+									PORTD &= ~(1<<PD4);//LOW D4
+								break;
+												
+								case 5://Position5
+									DDRD |= (1<<PD3);//Pin D3
+									PORTD &= ~(1<<PD3);//LOW D3
+								break;
+								}//ende switch
+						break;
 							
 							
-							case 3:	//Reihe3
-                                    DDRA |= (1<<PA2);//Pin A2
-                                    PORTA |= (1<<PA2);//HIGH Pin A2
-										switch(x)
-										{
-												case 1://Position1
-														DDRD |= (1<<PD7);//Pin D7
-														PORTD &= ~(1<<PD7);//LoW D7
-														
-														break;
-												
-												case 2://Position2
-														DDRD |= (1<<PD6);//Pin D6
-														PORTD &= ~(1<<PD6);//LOW Pin D6
-														
-														break;
-												
-												case 3://Position3
-														DDRD |= (1<<PD5);//Pin D5
-														PORTD &= ~(1<<PD5);//LOW D5
-														
-														break;
-												
-												case 4://Position4
-														DDRD |= (1<<PD4);//Pin D4
-														PORTD &= ~(1<<PD4);//LOW D4
-														
-														break;
-												
-												case 5://Position5
-														DDRD |= (1<<PD3);//Pin D3
-														PORTD &= ~(1<<PD3);//LOW D3
-														
-														break;
-										
-										}//ende switch
-										
-							break;
 							
 							
-							case 4:	//Reihe4
-									DDRA |= (1<<PA3);//Pin A3
-									PORTA |= (1<<PA3);//HIGH Pin A3
-										
-										switch(x)
-										{
-												case 1://Position1
-														
-														DDRD |= (1<<PD7);//Pin D3
-														PORTD &= ~(1<<PD7);//LOW D7
-														
-														break;
+						case 4:	//Reihe4
+							DDRA |= (1<<PA3);//Pin A3
+							PORTA |= (1<<PA3);//HIGH Pin A3
+							switch(x){
+								case 1://Position1
+									DDRD |= (1<<PD7);//Pin D3
+									PORTD &= ~(1<<PD7);//LOW D7
+								break;
 												
-												case 2://Position 2
-														
-														DDRD |= (1<<PD6);//Pin D6
-														PORTD &= ~(1<<PD6);//LOW D6
-														
-														break;
+								case 2://Position 2
+									DDRD |= (1<<PD6);//Pin D6
+									PORTD &= ~(1<<PD6);//LOW D6
+								break;
 												
-												case 3://Position 3
-														
-														DDRD |= (1<<PD5);//Pin D5
-														PORTD &= ~(1<<PD5);//LOW D5
-														
-														break;
+								case 3://Position 3
+									DDRD |= (1<<PD5);//Pin D5
+									PORTD &= ~(1<<PD5);//LOW D5
+								break;
 												
-												case 4://Position 4
-														
-														DDRD |= (1<<PD4);//Pin D4
-														PORTD &= ~(1<<PD4);//LOW D4
-														
-														break;
+								case 4://Position 4
+									DDRD |= (1<<PD4);//Pin D4
+									PORTD &= ~(1<<PD4);//LOW D4
+								break;
 												
-												case 5://Position 5
-														
-														DDRD |= (1<<PD3);//Pin D3
-														PORTD &= ~(1<<PD3);//LOW D3
-														
-														break;
-										
-										}//ende switch
-										
-							break;
+								case 5://Position 5
+									DDRD |= (1<<PD3);//Pin D3
+									PORTD &= ~(1<<PD3);//LOW D3
+								break;
+								}//ende switch
+						break;
 							
-							
-							case 5:	//Reihe5
-										DDRA |= (1<<PA4);//Pin A4
-										PORTA |= (1<<PA4);//HIGH A4
-										
-										switch(x)
-										{
+						case 5:	//Reihe5
+							DDRA |= (1<<PA4);//Pin A4
+							PORTA |= (1<<PA4);//HIGH A4
+							switch(x){
+								case 1://Position 1
+									DDRD |= (1<<PD7);//Pin D7
+									PORTD &= ~(1<<PD7);//LOW D7
+								break;
 												
-												case 1://Position 1
-														
-														DDRD |= (1<<PD7);//Pin D7
-														PORTD &= ~(1<<PD7);//LOW D7
-														
-														break;
+								case 2://Position 2
+									DDRD |= (1<<PD6);//Pin D6
+									PORTD &= ~(1<<PD6);//LOW D6
+								break;
 												
-												case 2://Position 2
-														
-														DDRD |= (1<<PD6);//Pin D6
-														PORTD &= ~(1<<PD6);//LOW D6
-														
-														break;
+								case 3://Position 3
+									DDRD |= (1<<PD5);//Pin D5
+									PORTD &= ~(1<<PD5);//LOW D5
+								break;
 												
-												case 3://Position 3
-														
-														DDRD |= (1<<PD5);//Pin D5
-														PORTD &= ~(1<<PD5);//LOW D5
-														
-														break;
+								case 4://Position 4
+									DDRD |= (1<<PD4);//Pin D4
+									PORTD &= ~(1<<PD4);//LOW D4
+								break;
 												
-												case 4://Position 4
+								case 5://Position 5
+									DDRD |= (1<<PD3);//Pin D3
+									PORTD &= ~(1<<PD3);//LOW D3
 														
-														DDRD |= (1<<PD4);//Pin D4
-														PORTD &= ~(1<<PD4);//LOW D4
-														
-														break;
-												
-												case 5://Position 5
-														
-														DDRD |= (1<<PD3);//Pin D3
-														PORTD &= ~(1<<PD3);//LOW D3
-														
-														break;
-										}//ende switch
-	
-							break;
-							
-						}//ende switch
-						
+								break;
+								}//ende switch
+						break;
+				}//ende switch
 			break;
  
-			case 2:	  //Ebene2
-						switch(z)
-						{
-							case 1:
-									DDRA |= (1<<PA0);//Pin A0
-									PORTA &= ~(1<<PA0);//LOW A0
-									
-									switch(x)
-									{
-											case 1://Position 1
-													DDRD |= (1<<PD7);//Pin D2
-													PORTD |= (1<<PD7);//HIGH D7
-												
-											break;
-												
-												
-											case 2://Position 2
-													DDRD |= (1<<PD6);//Pin D6
-													PORTD |= (1<<PD6);//HIGH D6
-												
-											break;
-												
-												
-											case 3://Position 3
-													DDRD |= (1<<PD5);//Pin D5
-													PORTD |= (1<<PD5);//HIGH D5
-												
-											break;
-												
-												
-											case 4://Position 4
-													DDRD |= (1<<PD4);//Pin D4
-													PORTD |= (1<<PD4);//HIGH D4
-												
-											break;
-												
-												
-											case 5://Position 5
-													DDRD |= (1<<PD3);//Pin D3
-													PORTD |= (1<<PD3);//HIGH D3
-												
-											break;
-												
-										
-									}//ende switch
-										
+			case 2://Ebene2
+				switch(z){
+					case 1:
+						DDRA |= (1<<PA0);//Pin A0
+						PORTA &= ~(1<<PA0);//LOW A0
+						switch(x){
+							case 1://Position 1
+								DDRD |= (1<<PD7);//Pin D2
+								PORTD |= (1<<PD7);//HIGH D7
 							break;
-							
-							case 2:
-									DDRA |= (1<<PA1);//Pin A1
-									PORTA &= ~(1<<PA1);//LOW A1
-									
-									switch(x)
-									{
-											case 1://Position 1
-													DDRD |= (1<<PD7);//Pin D7
-													PORTD |= (1<<PD7);//HIGH D7
 												
-											break;
-												
-												
-											case 2://Position 2 
-													DDRD |= (1<<PD6);//Pin D6
-													PORTD |= (1<<PD6);//HIGH D6
-												
-											break;
-												
-												
-											case 3://Position 3
-													DDRD |= (1<<PD5);//Pin D5
-													PORTD |= (1<<PD5);//HIGH D5
-												
-											break;
-												
-												
-											case 4://Position 4
-													DDRD |= (1<<PD4);//Pin D4
-													PORTD |= (1<<PD4);//HIGH D4
-												
-											break;
-												
-												
-											case 5://Position 5
-													DDRD |= (1<<PD3);//Pin D3
-													PORTD |= (1<<PD3);//HIGH D3
-												
-											break;
-										
-									}//ende switch							
-							
+							case 2://Position 2
+								DDRD |= (1<<PD6);//Pin D6
+								PORTD |= (1<<PD6);//HIGH D6
 							break;
-							
-							case 3:
-									DDRA |= (1<<PA2);//Pin A2
-									PORTA &= ~(1<<PA2);//LOW A2
-									
-									switch(x)
-									{
-											case 1:
-													DDRD |= (1<<PD7);//Pin D7
-													PORTD |= (1<<PD7);//HIGH D7
 												
-											break;
-												
-												
-											case 2: 
-													DDRD |= (1<<PD6);//Pin D6
-													PORTD |= (1<<PD6);///HIGH D6
-												
-											break;
-												
-												
-											case 3:
-													DDRD |= (1<<PD5);//Pin D5
-													PORTD |= (1<<PD5);//HIGH D5
-												
-											break;
-												
-												
-											case 4:
-													DDRD |= (1<<PD4);//Pin D4
-													PORTD |= (1<<PD4);//HIGH D4
-												
-											break;
-												
-												
-											case 5:
-													DDRD |= (1<<PD3);//Pin 3
-													PORTD |= (1<<PD3);//HIG D3
-												
-											break;
-										
-										}//ende switch
-							
+							case 3://Position 3
+								DDRD |= (1<<PD5);//Pin D5
+								PORTD |= (1<<PD5);//HIGH D5
 							break;
-							
-							
-							case 4:
-									DDRA |= (1<<PA3);//Pin A3
-									PORTA &= ~(1<<PA3);//LOW A3
-									
-									switch(x)
-									{
-											case 1://Position 1
-													DDRD |= (1<<PD7);//Pin D7
-													PORTD |= (1<<PD7);//HIGH D7
 												
-											break;
-												
-												
-											case 2: //Position 2
-													DDRD |= (1<<PD6);//Pin D6
-													PORTD |= (1<<PD6);//HIGH D6
-												
-											break;
-												
-												
-											case 3://Position 3
-													DDRD |= (1<<PD5);//Pin D5
-													PORTD |= (1<<PD5);//HIGH D5
-												
-											break;
-												
-												
-											case 4://Position 3
-													DDRD |= (1<<PD4);//Pin D4
-													PORTD |= (1<<PD4);//HIGH D4
-												
-											break;
-												
-												
-											case 5://Position 5
-													DDRD |= (1<<PD3);//Pin D3
-													PORTD |= (1<<PD3);//HIGH D3
-												
-											break;	
-										
-									}//ende switch
-							
+							case 4://Position 4
+								DDRD |= (1<<PD4);//Pin D4
+								PORTD |= (1<<PD4);//HIGH D4
 							break;
-							
-							case 5:
-									DDRA |= (1<<PA4);//Pin A4
-									PORTA &= ~(1<<PA4);//LOW A4
-									
-									switch(x)
-									{
-											case 1://Position 1
-													DDRD |= (1<<PD7);//Pin D7
-													PORTD |= (1<<PD7);//HIGH D7
 												
-											break;
-												
-												
-											case 2: //Position 2
-													DDRD |= (1<<PD6);//Pin D6
-													PORTD |= (1<<PD6);//HIGH D6
-												
-											break;
-												
-												
-											case 3://Position 3
-													DDRD |= (1<<PD5);//Pin D5
-													PORTD |= (1<<PD5);//HIGH D5
-												
-											break;
-												
-												
-											case 4://Position 4
-													DDRD |= (1<<PD4);//Pin D4
-													PORTD |= (1<<PD4);//HIGH D4
-												
-											break;
-												
-												
-											case 5://Position 5
-													DDRD |= (1<<PD3);//Pin D3
-													PORTD |= (1<<PD3);//HIGH D3
-												
-											break;	
-										
-										}//ende switch
-							
+							case 5://Position 5
+								DDRD |= (1<<PD3);//Pin D3
+								PORTD |= (1<<PD3);//HIGH D3
 							break;
-							
-							
 						}//ende switch
+										
+					break;
+							
+					case 2:
+						DDRA |= (1<<PA1);//Pin A1
+						PORTA &= ~(1<<PA1);//LOW A1
+						switch(x){
+							case 1://Position 1
+								DDRD |= (1<<PD7);//Pin D7
+								PORTD |= (1<<PD7);//HIGH D7
+							break;
+												
+							case 2://Position 2 
+								DDRD |= (1<<PD6);//Pin D6
+								PORTD |= (1<<PD6);//HIGH D6
+							break;
+												
+							case 3://Position 3
+								DDRD |= (1<<PD5);//Pin D5
+								PORTD |= (1<<PD5);//HIGH D5
+							break;
+												
+							case 4://Position 4
+								DDRD |= (1<<PD4);//Pin D4
+								PORTD |= (1<<PD4);//HIGH D4
+							break;
+												
+							case 5://Position 5
+								DDRD |= (1<<PD3);//Pin D3
+								PORTD |= (1<<PD3);//HIGH D3
+							break;
+						}//ende switch							
+					break;
+							
+					case 3:
+						DDRA |= (1<<PA2);//Pin A2
+						PORTA &= ~(1<<PA2);//LOW A2
+						switch(x){
+							case 1:
+								DDRD |= (1<<PD7);//Pin D7
+								PORTD |= (1<<PD7);//HIGH D7
+							break;
+												
+							case 2: 
+								DDRD |= (1<<PD6);//Pin D6
+								PORTD |= (1<<PD6);///HIGH D6
+							break;
+												
+							case 3:
+								DDRD |= (1<<PD5);//Pin D5
+								PORTD |= (1<<PD5);//HIGH D5
+							break;
+												
+							case 4:
+								DDRD |= (1<<PD4);//Pin D4
+								PORTD |= (1<<PD4);//HIGH D4
+							break;
+												
+							case 5:
+								DDRD |= (1<<PD3);//Pin 3
+								PORTD |= (1<<PD3);//HIG D3
+							break;
+						}//ende switch
+					break;
+							
+					case 4:
+						DDRA |= (1<<PA3);//Pin A3
+						PORTA &= ~(1<<PA3);//LOW A3
+						switch(x){
+							case 1://Position 1
+								DDRD |= (1<<PD7);//Pin D7
+								PORTD |= (1<<PD7);//HIGH D7
+							break;
+												
+							case 2: //Position 2
+								DDRD |= (1<<PD6);//Pin D6
+								PORTD |= (1<<PD6);//HIGH D6
+							break;
+												
+							case 3://Position 3
+								DDRD |= (1<<PD5);//Pin D5
+								PORTD |= (1<<PD5);//HIGH D5
+							break;
+												
+							case 4://Position 3
+								DDRD |= (1<<PD4);//Pin D4
+								PORTD |= (1<<PD4);//HIGH D4
+							break;
+												
+							case 5://Position 5
+								DDRD |= (1<<PD3);//Pin D3
+								PORTD |= (1<<PD3);//HIGH D3
+							break;	
+										
+						}//ende switch
+					break;
+							
+					case 5:
+						DDRA |= (1<<PA4);//Pin A4
+						PORTA &= ~(1<<PA4);//LOW A4
+						switch(x){
+							case 1://Position 1
+								DDRD |= (1<<PD7);//Pin D7
+								PORTD |= (1<<PD7);//HIGH D7
+							break;
+												
+							case 2: //Position 2
+								DDRD |= (1<<PD6);//Pin D6
+								PORTD |= (1<<PD6);//HIGH D6
+							break;
+												
+							case 3://Position 3
+								DDRD |= (1<<PD5);//Pin D5
+								PORTD |= (1<<PD5);//HIGH D5
+							break;
+												
+							case 4://Position 4
+								DDRD |= (1<<PD4);//Pin D4
+								PORTD |= (1<<PD4);//HIGH D4
+							break;
+												
+							case 5://Position 5
+								DDRD |= (1<<PD3);//Pin D3
+								PORTD |= (1<<PD3);//HIGH D3
+							break;	
+						}//ende switch
+							
+					break;
+							
+							
+				}//ende switch
 						
 			break;
 						
 			
-			case 3:		//Ebene3
-						switch(z)
-						{
-							case 1:
-									DDRA |= (1<<PA0);//Pin A0
-									PORTA |= (1<<PA0);//HIGH A0
-									
-									switch(x)
-									{
-											case 1://Position 1
-													DDRC |= (1<<PC5);//Pin C5
-													PORTC &= ~(1<<PC5);//LOW C5
-												
-											break;
-												
-												
-											case 2: //Position 2
-													DDRC |= (1<<PC4);//Pin C4
-													PORTC &= ~(1<<PC4);//LOW C4
-												
-											break;
-												
-												
-											case 3://Position 3
-													DDRC |= (1<<PC3);//Pin C3
-													PORTC &= ~(1<<PC3);//LOW C3
-												
-											break;
-												
-												
-											case 4://Position 4
-													DDRC |= (1<<PC6);//Pin C6
-													PORTC &= ~(1<<PC6);//LOW C6
-												
-											break;
-												
-												
-											case 5://Position 5
-													DDRC |= (1<<PC7);//Pin C7
-													PORTC &= ~(1<<PC7);//LOW C7
-												
-											break;
-										
-									}//ende switch
-							
+			case 3:	//Ebene3
+				switch(z){
+					case 1:
+						DDRA |= (1<<PA0);//Pin A0
+						PORTA |= (1<<PA0);//HIGH A0
+						switch(x){
+							case 1://Position 1
+								DDRC |= (1<<PC5);//Pin C5
+								PORTC &= ~(1<<PC5);//LOW C5	
 							break;
-										
+								
+							case 2: //Position 2
+								DDRC |= (1<<PC4);//Pin C4
+								PORTC &= ~(1<<PC4);//LOW C4
+							break;
+							
+							case 3:	
+								DDRC |= (1<<PC3);//Pin C3
+								PORTC &= ~(1<<PC3);//LOW C3
+							break;
+								
+							case 4://Position 4
+								DDRC |= (1<<PC6);//Pin C6
+								PORTC &= ~(1<<PC6);//LOW C6
+							break;
+								
+							case 5://Position 5
+								DDRC |= (1<<PC7);//Pin C7
+								PORTC &= ~(1<<PC7);//LOW C7
+							break;
+				}//ende switch
+			break;
 						
-							
-							case 2:
-										
-									DDRA |= (1<<PA1);//Pin A1
-									PORTA |= (1<<PA1);//HIGH A1
-									
-									switch(x)
-									{
-											case 1://Position 1
-													DDRC |= (1<<PC5);//Pin C5
-													PORTC &= ~(1<<PC5);//LOW C5
-												
-											break;
-												
-												
-											case 2: //Position 2
-													DDRC |= (1<<PC4);//Pin C4
-													PORTC &= ~(1<<PC4);//LOW C4
-												
-											break;
-												
-												
-											case 3://Position 3
-													DDRC |= (1<<PC3);//Pin C3
-													PORTC &= ~(1<<PC3);//LOW C3
-												
-											break;
-												
-												
-											case 4://Position 4
-													DDRC |= (1<<PC6);//Pin C6
-													PORTC &= ~(1<<PC6);//LOW C6
-												
-											break;
-												
-												
-											case 5://Position 5
-													DDRC |= (1<<PC7);//Pin C7
-													PORTC &= ~(1<<PC7);//LOW C7
-												
-											break;
-										
-									}//ende switch
-							
-							
-							
+		
+			
+			case 2:
+						
+					DDRA |= (1<<PA1);//Pin A1
+					PORTA |= (1<<PA1);//HIGH A1
+					
+					switch(x)
+					{
+							case 1://Position 1
+									DDRC |= (1<<PC5);//Pin C5
+									PORTC &= ~(1<<PC5);//LOW C5
+								
 							break;
+								
+								
+							case 2: //Position 2
+									DDRC |= (1<<PC4);//Pin C4
+									PORTC &= ~(1<<PC4);//LOW C4
+								
+							break;
+								
+								
+							case 3://Position 3
+									DDRC |= (1<<PC3);//Pin C3
+									PORTC &= ~(1<<PC3);//LOW C3
+								
+							break;
+								
+								
+							case 4://Position 4
+									DDRC |= (1<<PC6);//Pin C6
+									PORTC &= ~(1<<PC6);//LOW C6
+								
+							break;
+								
+								
+							case 5://Position 5
+									DDRC |= (1<<PC7);//Pin C7
+									PORTC &= ~(1<<PC7);//LOW C7
+								
+							break;
+						
+					}//ende switch
+			
+			
+			
+			break;
 							
 							case 3:
 									DDRA |= (1<<PA2);//Pin A2
@@ -944,120 +745,102 @@ void cube(uint8_t y, uint8_t z, uint8_t x)
 						
 			break;
 			
-			
 			case 4:		//Ebene4
-						switch(z)
+				switch(z){
+					case 1:
+						DDRA |= (1<<PA0);//Pin A0
+						PORTA &= ~(1<<PA0);//LOW A0				
+						switch(x)
 						{
-								case 1:
-										DDRA |= (1<<PA0);//Pin A0
-										PORTA &= ~(1<<PA0);//LOW A0
-										
-											switch(x)
-											{
-                                                case 1://Position 1
-														DDRC |= (1<<PC5);//Pin C5
-														PORTC |= (1<<PC5);//HIGH C5
-                                                break;
-												
-                                                case 2://Position 2
-														DDRC |= (1<<PC4);//Pin C4
-														PORTC |= (1<<PC4);//HIGH C4
-														
-                                                break;        
-												
-                                                case 3://Position 3
-														DDRC |= (1<<PC3);//Pin C3
-														PORTC |= (1<<PC3);//HIGH C3
-														
-                                                break;        
-												
-                                                case 4://Position 4
-														DDRC |= (1<<PC6);//Pin C6
-														PORTC |= (1<<PC6);//HIGH C6
-														
-                                                break;        
-												
-                                                case 5://Position 5
-														DDRC |= (1<<PC7);//Pin C7
-														PORTC |= (1<<PC7);//HIGH C7	
-														
-                                                break;
-										
-										}//ende switch
-							
-								break;
-							
-								case 2: 
-										DDRA |= (1<<PA1);//Pin A1
-										PORTA &= ~(1<<PA1);//LOW A1	
-										
-											switch(x)
-											{
-                                                case 1://Position 1
-														DDRC |= (1<<PC5);//Pin C5
-														PORTC |= (1<<PC5);//HIGH C5
-                                                break;
-												
-                                                case 2://Position 2
-														DDRC |= (1<<PC4);//Pin C4
-														PORTC |= (1<<PC4);//HIGH C4
-														
-                                                break;        
-												
-                                                case 3://Position 3
-														DDRC |= (1<<PC3);//Pin C3
-														PORTC |= (1<<PC3);//HIGH C3
-														
-                                                break;        
-												
-                                                case 4://Position 4
-														DDRC |= (1<<PC6);//Pin C6
-														PORTC |= (1<<PC6);//HIGH C6
-														
-                                                break;        
-												
-                                                case 5://Position 5
-														DDRC |= (1<<PC7);//Pin C7
-														PORTC |= (1<<PC7);	//HIGH C7
-														
-                                                break;
-										
-										}//ende switch
+							case 1://Position 1
+								DDRC |= (1<<PC5);//Pin C5
+								PORTC |= (1<<PC5);//HIGH C5
 							break;
 							
+							case 2://Position 2
+								DDRC |= (1<<PC4);//Pin C4
+								PORTC |= (1<<PC4);//HIGH C4
+							break;        
+							
+							case 3://Position 3
+								DDRC |= (1<<PC3);//Pin C3
+								PORTC |= (1<<PC3);//HIGH C3
+							break;        
+							
+							case 4://Position 4
+								DDRC |= (1<<PC6);//Pin C6
+								PORTC |= (1<<PC6);//HIGH C6
+							break;        
+							
+							case 5://Position 5
+								DDRC |= (1<<PC7);//Pin C7
+								PORTC |= (1<<PC7);//HIGH C7	
+							break;
+						}//ende switch
+					break;
+							
+					case 2: 
+						DDRA |= (1<<PA1);//Pin A1
+						PORTA &= ~(1<<PA1);//LOW A1				
+						switch(x)
+						{
+							case 1://Position 1
+								DDRC |= (1<<PC5);//Pin C5
+								PORTC |= (1<<PC5);//HIGH C5
+							break;
+							
+							case 2://Position 2
+								DDRC |= (1<<PC4);//Pin C4
+								PORTC |= (1<<PC4);//HIGH C4	
+							break;        
+							
+							case 3://Position 3
+								DDRC |= (1<<PC3);//Pin C3
+								PORTC |= (1<<PC3);//HIGH C3	
+							break;        
+							
+							case 4://Position 4
+								DDRC |= (1<<PC6);//Pin C6
+								PORTC |= (1<<PC6);//HIGH C6	
+							break;        
+							
+							case 5://Position 5
+								DDRC |= (1<<PC7);//Pin C7
+								PORTC |= (1<<PC7);	//HIGH C7	
+							break;
+					
+						}//ende switch
+					break;
+							
 							case 3:
-									DDRA |= (1<<PA2);//Pin A2
-									PORTA &= ~(1<<PA2);//LOW A2
+								DDRA |= (1<<PA2);//Pin A2
+								PORTA &= ~(1<<PA2);//LOW A2
 									
 											switch(x)
 											{
 												case 1://Position 1
-														DDRC |= (1<<PC5);//Pin C5
-														PORTC |= (1<<PC5);//HIGH C5
+													DDRC |= (1<<PC5);//Pin C5
+													PORTC |= (1<<PC5);//HIGH C5
                                                 break;
 												
                                                 case 2://Position 2
-														DDRC |= (1<<PC4);//Pin C4
-														PORTC |= (1<<PC4);//HIGH C4
-														
+													DDRC |= (1<<PC4);//Pin C4
+													PORTC |= (1<<PC4);//HIGH C4	
                                                 break;        
 												
                                                 case 3://Position 3
-														DDRC |= (1<<PC3);//Pin C3
-														PORTC |= (1<<PC3);//HIGH C3
-														
+													DDRC |= (1<<PC3);//Pin C3
+													PORTC |= (1<<PC3);//HIGH C3
                                                 break;        
 												
                                                 case 4://Position 4
-														DDRC |= (1<<PC6);//Pin C6
-														PORTC |= (1<<PC6);//HIGH C6
-														
+													DDRC |= (1<<PC6);//Pin C6
+													PORTC |= (1<<PC6);//HIGH C6	
                                                 break;        
 												
                                                 case 5://Position 5
-														DDRC |= (1<<PC7);//C7
-														PORTC |= (1<<PC7);//HIGH C7
-														
+													DDRC |= (1<<PC7);//C7
+													PORTC |= (1<<PC7);//HIGH C7	
                                                 break;
 										
 										}//ende switch
